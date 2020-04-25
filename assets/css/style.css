@@ -1,0 +1,46 @@
+/* Body and HTML */
+html, body {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  background-color: #f6f6f6;
+  /* background-color: #777; */
+}
+
+.fas {
+    color: #444 !important;
+}
+
+/* Navbar */
+.dark-navbar {
+  background-color: #444;
+}
+
+.center {
+  text-align: -webkit-center;
+  text-align: -moz-center;
+}
+
+.break-line {
+  margin-top: 10px;
+}
+
+.break-line-30 {
+  margin-top: 30px;
+}
+
+.hoverable {
+  border-color: 2px solid #1aa260;
+}
+
+* {
+  text-align: center;
+}
+#placeholder {
+  height: 50px;
+  width: 50px;
+  margin-bottom: 50px;
+  font-size:50px;
+}

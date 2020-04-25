@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title>Semester Project 2</title>
+  <link rel="icon" href="img/mdb-favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap">
+  <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+  <link rel="stylesheet" href="assets/css/mdb.min.css">
+  <link rel="stylesheet" href="assets/css/style.css">
+
+  <link rel="stylesheet" href="assets/css/character-selection.css">
+  <link rel="stylesheet" href="https://unpkg.com/swiper/css/swiper.min.css">
+  <script src="https://www.gstatic.com/firebasejs/7.10.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.10.0/firebase-analytics.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.10.0/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.10.0/firebase-database.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.10.0/firebase-firestore.js"></script>
+
+  <script>
+    var firebaseConfig = {
+      apiKey: "AIzaSyDZ2KaOuqd_DwvsGwTZV0wPaoMZmxAoHEc",
+      authDomain: "gameofthrones-boardgame.firebaseapp.com",
+      databaseURL: "https://gameofthrones-boardgame.firebaseio.com",
+      projectId: "gameofthrones-boardgame",
+      storageBucket: "gameofthrones-boardgame.appspot.com",
+      messagingSenderId: "877736684986",
+      appId: "1:877736684986:web:3bb0b7e1e0d7906482c183",
+      measurementId: "G-H45VJLJS9P"
+    };
+    firebase.initializeApp(firebaseConfig);
+    firebase.analytics();
+  </script>
+
+</head>
+<body>
+
+  <header>
+    <!--NAVBAR -->
+    <nav class="mb-1 navbar navbar-expand-lg navbar-dark dark-navbar">
+      <a class="navbar-brand" href="">Game Of Thrones - Board Game</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent-333"
+        aria-controls="navbarSupportedContent-333" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent-333">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item active">
+            <!-- <a class="nav-link" href="">Home
+              <span class="sr-only">(current)</span>
+            </a> -->
+          </li>
+
+        </ul>
+        <ul class="navbar-nav ml-auto nav-flex-icons">
+          <li class="nav-item">
+            <a class="nav-link" href="https://trello.com/b/FeOApoC1/game-of-thrones-board-game" target="_blank">Trello board</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="https://console.firebase.google.com/u/0/project/gameofthrones-boardgame/database/gameofthrones-boardgame/data" target="_blank">Firebase</a>
+          </li>
+          <li class="nav-item">
+            <button class="nav-link btn btn-red" target="_blank" id="clearDatabase">Clear Database</button>
+          </li>
+        </ul>
+      </div>
+    </nav>
+    <!--NAVBAR END -->
+  </header>
+
+  <main>
+    <div class="break-line-30"></div>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-12 col-sm-12 col-lg-12">
+
+          <!-- LOADER -->
+          <div class="loader" id="loader">
+            <h1 class="font-weight-bold my-3">Creating game .. </h1>
+            <br>
+            <div class="d-flex justify-content-center">
+              <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
+                <span class="sr-only">Loading...</span>
+              </div>
+            </div>
+          </div>
+          <!-- LOADER END -->
+
+          <!-- Create game invite block -->
+          <div class="container my-5 z-depth-1" id="game-invite-block">
+            <section class="dark-grey-text p-5">
+              <div class="row">
+                <div class="col-md-5 mb-4 mb-md-0">
+                  <div class="view">
+                    <img src="assets/img/start-game.jpg" class="img-fluid" alt="smaple image">
+                  </div>
+                </div>
+                <div class="col-md-7 mb-lg-0 mb-4">
+                  <form class="" action="">
+                    <h3 class="font-weight-bold my-3">Game-ID key</h3>
+                    <p class="text-muted mb-4 pb-2">Copy the game-ID key below and send it to the person you want to play against. When you are ready, click the button "Start game".</p>
+                    <div class="input-group">
+                      <input id="game-id-key" type="text" class="form-control" autocomplete="off">
+                      <div class="input-group-append">
+                        <button class="btn btn-md btn-primary m-0 px-3 py-2 z-depth-0 waves-effect" type="button" id="copy-to-clipboard">Copy to clipboard</button>
+                      </div>
+                    </div>
+                  </form>
+                  <br>
+                  <button type="button" class="btn green-button waves-effect" id="start-game">START GAME</button>
+                </div>
+              </div>
+            </section>
+          </div>
+          <!-- Create game invite block END -->
+          <!-- Username block -->
+          <div class="container my-5 z-depth-1" id="userName-block">
+            <section class="dark-grey-text p-5">
+              <div class="row">
+                <div class="col-md-5 mb-4 mb-md-0">
+                  <div class="view">
+                    <img src="assets/img/start-game.jpg" class="img-fluid" alt="smaple image">
+                  </div>
+                </div>
+                <div class="col-md-7 mb-lg-0 mb-4">
+                  <form>
+                    <h3 class="font-weight-bold my-3">Username</h3>
+                    <p class="text-muted mb-4 pb-2">Create a username. This is not an account creation, and you can choose whatever username you want.</p>
+                    <div class="input-group">
+                      <input id="username" type="text" class="form-control">
+                    </div>
+                  </form>
+                  <br>
+                  <button type="button" class="btn green-button waves-effect" id="userName-block-button">DONE</button>
+                </div>
+              </div>
+            </section>
+          </div>
+          <!-- Username block END -->
+
+          <!-- CHARACTER SECTION -->
+          <div class="character-section">
+            <div class="main-wrapper" id="character-selection">
+              <div class="slide-main-container">
+                <div class="slide-header-wrapper">
+                  <h3 id="select-character-h3">Select character</h3>
+                  <p>Swipe with your mouse or use your arrows on the keyboard to select your character.</p>
+                  <br>
+                  <div class="character" id="character-info">
+                    <h4><span id="character-selected-header">YOUR CHARACTER</span></h4>
+                    <h4><span id="bot-character-selected-header">BOT CHARACTER</span></h4>
+                    <br>
+                    <p><b>Title: </b><span id="character-title"></span></p>
+                    <p><b>Born: </b><span id="character-born"></span></p>
+                    <p><b>Culture: </b><span id="character-culture"></span></p>
+                    <p><b>Alias: </b><span id="character-alias"></span></p>
+                    <p><b>Played by: </b><span id="character-playedby"></span></p>
+                    <button type="button" class="btn green-button waves-effect" id="character-confirm-button">CONFIRM CHARACTER</button>
+                    <button type="button" class="btn green-button waves-effect" id="bot-character-confirm-button">CREATE GAME</button>
+                  </div>
+                </div>
+
+                <!-- SLIDER -->
+                <div class="slide-wrapper">
+                  <div class="swiper-container">
+                    <div class="swiper-wrapper" id="swiper-wrapper">
+
+                    </div>
+                  </div>
+                </div>
+                <!-- SLIDER END-->
+              </div>
+            </div>
+          </div>
+          <!-- CHARACTER SECTION END -->
+
+        <!-- PLAYER MODE SELECTION -->
+        <div class="player-mode" id="player-mode">
+          <div class="container my-5">
+            <section class="dark-grey-text">
+              <h3 class="text-center font-weight-bold mb-4 pb-2">Select player mode</h3>
+              <p class="lead text-center w-responsive mx-auto text-muted mt-4 pt-2 mb-5">You can chose to play against a bot or you can play against a other player.</p>
+              <div class="row">
+                <div class="col-md-6 mb-4">
+                  <a class="card hoverable" id="player-mode-bot">
+                    <div class="card-body">
+                      <div class="media">
+                        <span class="card-img-100 d-inline-flex justify-content-center align-items-center rounded-circle grey lighten-3 mr-4">
+                          <i class="fas fa-robot fa-3x"></i>
+                        </span>
+                        <div class="media-body">
+                          <h5 class="dark-grey-text mb-3">YOU VERSUS BOT</h5>
+                          <p class="font-weight-light text-muted mb-0">Play against a script made bot.</p>
+                        </div>
+                      </div>
+                    </div>
+                  </a>
+                </div>
+                <div class="col-md-6 mb-4">
+                  <a class="card hoverable" id="player-mode-pvp">
+                    <div class="card-body">
+                      <div class="media">
+                        <span class="card-img-100 d-inline-flex justify-content-center align-items-center rounded-circle grey lighten-3 mr-4">
+                          <i class="fas fa-user-friends fa-3x"></i>
+                        </span>
+                        <div class="media-body">
+                          <h5 class="dark-grey-text mb-3">YOU VERSUS PLAYER</h5>
+                          <p class="font-weight-light text-muted mb-0">Play against another human player.</p>
+                        </div>
+                      </div>
+                    </div>
+                  </a>
+                </div>
+              </div>
+            </section>
+          </div>
+        </div>
+        <!-- PLAYER MODE SELECTION END -->
+
+        </div>
+      </div>
+    </div>
+
+  </main>
+  <script type="text/javascript" src="assets/js/addons/jquery.min.js"></script>
+  <script type="text/javascript" src="assets/js/addons/bootstrap.min.js"></script>
+  <script type="text/javascript" src="assets/js/addons/mdb.min.js"></script>
+  <script type="text/javascript" src="assets/js/addons/swiper.min.js"></script>
+  <script type="text/javascript" src="assets/js/addons/cookie.js"></script>
+  <script type="text/javascript" src="assets/js/character-sel.js"></script>
+</body>
+</html>

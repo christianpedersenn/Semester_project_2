@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title>Semester Project 2</title>
+  <!-- <link rel="icon" href="img/mdb-favicon.ico" type="image/x-icon"> -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap">
+  <link rel="stylesheet" href="../../assets/css/bootstrap.min.css">
+  <link rel="stylesheet" href="../../assets/css/scrollbar.mdb.css">
+  <link rel="stylesheet" href="../../assets/css/mdb.min.css">
+  <link rel="stylesheet" href="../../assets/css/game.css">
+  <link rel="stylesheet" href="../../assets/css/style.css">
+  <link rel="stylesheet" href="../../assets/css/character-selection.css">
+  <link rel="stylesheet" href="../../assets/css/dice-1.0.min.css"> <!-- https://diafygi.github.io/dice-css/dice-1.0.min.css -->
+  <link rel="stylesheet" href="https://unpkg.com/swiper/css/swiper.min.css">
+  <!-- Firebase -->
+  <script src="https://www.gstatic.com/firebasejs/7.10.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.10.0/firebase-analytics.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.10.0/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.10.0/firebase-database.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.10.0/firebase-firestore.js"></script>
+  <script>
+    var firebaseConfig = {
+      apiKey: "AIzaSyDZ2KaOuqd_DwvsGwTZV0wPaoMZmxAoHEc",
+      authDomain: "gameofthrones-boardgame.firebaseapp.com",
+      databaseURL: "https://gameofthrones-boardgame.firebaseio.com",
+      projectId: "gameofthrones-boardgame",
+      storageBucket: "gameofthrones-boardgame.appspot.com",
+      messagingSenderId: "877736684986",
+      appId: "1:877736684986:web:3bb0b7e1e0d7906482c183",
+      measurementId: "G-H45VJLJS9P"
+    };
+    firebase.initializeApp(firebaseConfig);
+    firebase.analytics();
+  </script>
+
+</head>
+<body>
+
+  <header>
+    <!--NAVBAR -->
+    <nav class="mb-1 navbar navbar-expand-lg navbar-dark dark-navbar">
+      <a class="navbar-brand" href="../../">Game Of Thrones - Board Game</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent-333"
+        aria-controls="navbarSupportedContent-333" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent-333">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item active">
+          </li>
+
+        </ul>
+        <ul class="navbar-nav ml-auto nav-flex-icons">
+          <li class="nav-item">
+            <a class="nav-link" href="">Refresh page</a>
+          </li>        
+        </ul>
+      </div>
+    </nav>
+    <!--NAVBAR END -->
+  </header>
+
+  <main>
+    <div class="break-line-30"></div>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-12 col-sm-12 col-lg-12 center">
+          <!-- LOADER -->
+          <div class="loader" id="loader">
+            <h1 class="font-weight-bold my-3" id="loader-text">Loading game .. </h1>
+            <br>
+            <div class="d-flex justify-content-center">
+              <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
+                <span class="sr-only">Loading...</span>
+              </div>
+            </div>
+          </div>
+          <!-- LOADER END -->
+          <!-- WINNER MODAL -->
+          <div class="modal fade" id="winnerModal" tabindex="-1" role="dialog" aria-labelledby="winnerModalLabel"
+             aria-hidden="true">
+             <div class="modal-dialog modal-notify modal-success" role="document">
+               <div class="modal-content">
+                 <div class="modal-header">
+                   <p class="heading lead">WINNER</p>
+                   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                     <span aria-hidden="true" class="white-text">&times;</span>
+                   </button>
+                 </div>
+                 <div class="modal-body">
+                   <div class="text-center">
+                     <p>Congratulations, you won the game!</p>
+                   </div>
+                 </div>
+                 <div class="modal-footer justify-content-center">
+                   <a type="button" class="btn btn-success" id="createNewGame">Play a new game</a>
+                   <a type="button" class="btn btn-outline-success waves-effect" data-dismiss="modal">Close</a>
+                 </div>
+               </div>
+             </div>
+           </div>
+           <!-- WINNER MODAL-->
+          <!-- LOSER MODAL -->
+          <div class="modal fade" id="loserModal" tabindex="-1" role="dialog" aria-labelledby="loserModalLabel"
+             aria-hidden="true">
+             <div class="modal-dialog modal-notify modal-danger" role="document">
+               <div class="modal-content">
+                 <div class="modal-header">
+                   <p class="heading lead">LOSER</p>
+                   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                     <span aria-hidden="true" class="white-text">&times;</span>
+                   </button>
+                 </div>
+                 <div class="modal-body">
+                   <div class="text-center">
+                     <p>Too bad, you lost the game.. Good luck next time!</p>
+                   </div>
+                 </div>
+                 <div class="modal-footer justify-content-center">
+                   <a type="button" class="btn btn-danger" href="../../">Play a new game</a>
+                   <a type="button" class="btn btn-outline-danger waves-effect" data-dismiss="modal">Close</a>
+                 </div>
+               </div>
+             </div>
+           </div>
+           <!-- LOSER MODAL-->
+          <!-- TRAP MODAL -->
+          <div class="modal fade" id="trapModal" tabindex="-1" role="dialog" aria-labelledby="trapModalLabel"
+             aria-hidden="true">
+             <div class="modal-dialog modal-notify modal-warning" role="document">
+               <div class="modal-content">
+                 <div class="modal-header">
+                   <p class="heading lead">YOU GOT TRAPPED</p>
+                   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                     <span aria-hidden="true" class="white-text">&times;</span>
+                   </button>
+                 </div>
+                 <div class="modal-body">
+                   <div class="text-center">
+                     <p id="trapMessage"></p>
+                   </div>
+                 </div>
+                 <div class="modal-footer justify-content-center">
+                   <a type="button" class="btn btn-outline-warning waves-effect" data-dismiss="modal">Close</a>
+                 </div>
+               </div>
+             </div>
+           </div>
+           <!-- TRAP MODAL-->
+        </div>
+      </div>
+        <!-- GAME -->
+        <div class="game-board" id="game-board">
+        <div class="row">
+          <div class="col-7 col-sm-7 col-lg-7">
+              <div class="container">
+
+                <div class="row justify-content-start">
+                  <div class="col-1">
+                    <div class="tile" id="tile-1">
+                    </div>
+                  </div>
+                  <div class="col-1">
+                    <div class="tile" id="tile-2">
+                    </div>
+                  </div>
+                  <div class="col-1">
+                    <div class="tile" id="tile-3">
+                    </div>
+                  </div>
+                  <div class="col-1">
+                    <div class="tile" id="tile-4">
+                    </div>
+                  </div>
+                  <div class="col-1">
+                    <div class="tile" id="tile-5">
+                    </div>
+                  </div>
+                  <div class="col-1">
+                    <div class="tile" id="tile-6">
+                    </div>
+                  </div>
+                  <div class="col-1">
+                    <div class="tile" id="tile-7">
+                    </div>
+                  </div>
+                  <div class="col-1">
+                    <div class="tile" id="tile-8">
+                    </div>
+                  </div>
+                  <div class="col-1">
+                    <div class="tile" id="tile-9">
+                    </div>
+                  </div>
+                  <div class="col-3">
+                    <!-- Fill unused column usage -->
+                  </div>
+                </div>
+                <div class="row justify-content-start">
+                  <div class="col-8">
+                    <div class="tile" id="tile-30">
+                    </div>
+                  </div>
+                  <div class="col-1">
+                    <div class="tile" id="tile-10">
+                    </div>
+                  </div>
+                </div>
+                <div class="row justify-content-start">
+                  <div class="col-1">
+                    <div class="tile" id="tile-29">
+                    </div>
+                  </div>
+                  <div class="col-7">
+                    <!-- DICE -->
+                    <div class="center">
+                      <p id="placeholder"><span id="dice" class=""></span> </p>
+                    </div>
+                    <!-- DICE END -->
+                  </div>
+                  <div class="col-1">
+                    <div class="tile" id="tile-11">
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row justify-content-start">
+                  <div class="col-1">
+                    <div class="tile" id="tile-28">
+                    </div>
+                  </div>
+                  <div class="col-7">
+                    <!-- DICE -->
+                    <div class="center">
+                      <button type="button" class="btn green-button waves-effect" id="roll-dice-button">ROLL DICE</button>
+                    </div>
+                    <!-- DICE END -->
+                  </div>
+                  <div class="col-1">
+                    <div class="tile" id="tile-12">
+                    </div>
+                  </div>
+                </div>
+                <div class="row justify-content-start">
+                  <div class="col-8">
+                    <div class="tile" id="tile-27">
+                    </div>
+                  </div>
+                  <div class="col-1">
+                    <div class="tile" id="tile-13">
+                    </div>
+                  </div>
+                </div>
+                <div class="row justify-content-start">
+                  <div class="col-8">
+                    <div class="tile" id="tile-26">
+                    </div>
+                  </div>
+                  <div class="col-1">
+                    <div class="tile" id="tile-14">
+                    </div>
+                  </div>
+                </div>
+                <div class="row justify-content-start">
+                  <div class="col-8">
+                    <div class="tile" id="tile-25">
+                    </div>
+                  </div>
+                  <div class="col-1">
+                    <div class="tile" id="tile-15">
+                    </div>
+                  </div>
+                </div>
+                <div class="row justify-content-start">
+                  <div class="col-1">
+                    <div class="tile" id="tile-24">
+                    </div>
+                  </div>
+                  <div class="col-1">
+                    <div class="tile" id="tile-23">
+                    </div>
+                  </div>
+                  <div class="col-1">
+                    <div class="tile" id="tile-22">
+                    </div>
+                  </div>
+                  <div class="col-1">
+                    <div class="tile" id="tile-21">
+                    </div>
+                  </div>
+                  <div class="col-1">
+                    <div class="tile" id="tile-20">
+                    </div>
+                  </div>
+                  <div class="col-1">
+                    <div class="tile" id="tile-19">
+                    </div>
+                  </div>
+                  <div class="col-1">
+                    <div class="tile" id="tile-18">
+                    </div>
+                  </div>
+                  <div class="col-1">
+                    <div class="tile" id="tile-17">
+                    </div>
+                  </div>
+                  <div class="col-1">
+                    <div class="tile" id="tile-16">
+                    </div>
+                  </div>
+                  <div class="col-3">
+                    <!-- Fill unused column usage -->
+                  </div>
+                </div>
+              </div>
+
+          </div>
+          <div class="col-4 col-sm-4 col-lg-4">
+            <div class="card card-dark card-scroll scrollbar scrollbar-primary">
+              <div class="card-body">
+                <h4 id="section1"><strong>Game log</strong></h4>
+                <div id="game-log-container">
+                  <div class="game-log" id="game-log">
+
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-1 col-sm-1 col-lg-1">
+            <!-- Just to fill last unused column -->
+          </div>
+        </div>
+        </div>
+        <!-- GAME END -->
+
+    </div>
+
+  </main>
+  <script type="text/javascript" src="../../assets/js/addons/jquery.min.js"></script>
+  <script type="text/javascript" src="../../assets/js/addons/bootstrap.min.js"></script>
+  <script type="text/javascript" src="../../assets/js/addons/mdb.min.js"></script>
+  <script type="text/javascript" src="../../assets/js/addons/swiper.min.js"></script>
+  <script type="text/javascript" src="../../assets/js/addons/cookie.js"></script>
+  <script type="text/javascript" src="../../assets/js/game/game-pvp.js"></script>
+</body>
+</html>

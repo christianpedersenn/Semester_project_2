@@ -1,0 +1,281 @@
+* {
+	box-sizing: border-box;
+	font-family: "Rubik", sans-serif;
+}
+
+.slide-wrapper {
+	position: relative;
+}
+
+.slide-background-image {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	background-repeat: no-repeat;
+}
+
+.button-group {
+	width:100%;
+  text-align: center;
+}
+
+.button-inner {
+	display: inline-block;
+}
+
+.character1-img {
+	background-image: url("https://firebasestorage.googleapis.com/v0/b/gameofthrones-boardgame.appspot.com/o/images%2Fcharacter-2.jpg?alt=media&token=bd7b6af8-3497-4d84-bdeb-89bd684577e0")
+}
+.slide-content-container {
+	position: absolute;
+	background-color: #444;
+	color: #fff;
+}
+
+.white-button {
+	background-color: #fff;
+	color: #444;
+	font-size: 16px;
+}
+.blue-button {
+	background-color: #4688D5;
+	color: #fff;
+	font-size: 16px;
+}
+.blue-button:hover {
+	color: #fff;
+}
+.green-button {
+	background-color: #1aa260;
+	color: #fff;
+	font-size: 16px;
+}
+.green-button:hover {
+	color: #fff;
+}
+.red-button {
+	background-color: #de5246;
+	color: #fff;
+	font-size: 16px;
+}
+.red-button:hover {
+	background-color: #de5246;
+	color: #fff;
+}
+.btn:hover {
+	font-weight: bold;
+}
+
+.selected-slide {
+	border: solid 4px #4688D5;
+}
+
+.slide-opacity {
+	opacity: 0.55 !important;
+}
+
+@media only screen and (min-width: 320px) {
+	.slide-header-wrapper {
+		padding: 0 18px;
+	}
+	.slide-header-wrapper h3 {
+		font-size: 40px;
+		font-weight: 500;
+		line-height: 80%;
+		letter-spacing: -1.4px;
+		margin: 10px 0;
+	}
+	.slide-header-wrapper h4 {
+		font-weight: 400;
+		text-transform: uppercase;
+		margin: 0;
+		line-height: 100%;
+		letter-spacing: -1.4px;
+		word-spacing: 2.4px;
+	}
+	.slide-header-wrapper p {
+		font-weight: 300;
+	}
+	.swiper-slide-prev .slide-cover,
+	.swiper-slide-next .slide-cover,
+	.slide-cover {
+		background-color: #ffffff;
+		height: 100%;
+		width: 100%;
+		position: absolute;
+		top: 0;
+		z-index: 2;
+		opacity: 0.75;
+		-webkit-transition: opacity 300ms;
+		transition: opacity 300ms;
+		visibility: visible;
+	}
+	.swiper-slide-active .slide-cover {
+		position: absolute;
+		opacity: 0;
+		-webkit-transition: visibility 0s 0.5s, opacity 300ms;
+		transition: visibility 0s 0.5s, opacity 300ms;
+		height: 100%;
+		width: 100%;
+		background-color: #ffffff;
+		z-index: 2;
+		visibility: hidden;
+	}
+	.swiper-container {
+		width: 95%;
+		height: 100%;
+	}
+	.slide-card-wrapper {
+		position: relative;
+		height: 540px;
+		overflow: hidden;
+	}
+	.slide-background-image {
+		background-size: cover;
+		background-position: center top;
+	}
+	.slide-content-wrapper {
+		position: absolute;
+		z-index: 1;
+		top: 0;
+		left: 50%;
+		transform: translate(-50%, 0);
+		-webkit-transition: width 250ms, height 250ms;
+		transition: width 250ms, height 250ms;
+		overflow: hidden;
+	}
+	.slide-content-wrapper-inactive {
+		width: 101%;
+		height: 541px;
+	}
+	.slide-content-wrapper-active {
+		width: 101%;
+		height: 100%;
+	}
+	.slide-content-container {
+		width: 100%;
+		height: auto;
+		padding-left: 16px;
+		padding-right: 16px;
+		z-index: 1;
+	}
+	.slide-card-hide {
+		transform: translate(0, 410px);
+		-webkit-transition: transform 250ms cubic-bezier(0.785, 0.135, 0.15, 0.86),
+			width 250ms;
+		transition: transform 250ms cubic-bezier(0.785, 0.135, 0.15, 0.86),
+			width 250ms;
+		height: 568px;
+	}
+	.slide-content-container {
+		font-weight: 300;
+		margin-top: 15px;
+		overflow-y: auto;
+	}
+}
+@media only screen and (min-width: 375px) {
+	.slide-card-wrapper,
+	.slide-content-wrapper-inactive {
+		height: 600px;
+	}
+	.slide-content-wrapper-inactive {
+		width: 101%;
+	}
+	.slide-content-container {
+		height: 372px;
+	}
+
+	.slide-card-hide {
+		transform: translate(0, 465px);
+		height: 667px;
+	}
+}
+@media only screen and (min-width: 414px) {
+	.slide-header-wrapper h3 {
+		font-size: 45px;
+	}
+	.slide-card-wrapper,
+	.slide-content-wrapper-inactive {
+		height: 650px;
+	}
+	.slide-card-hide {
+		height: 740px;
+		transform: translate(0, 495px);
+	}
+	.slide-content-container {
+		margin-top: 30px;
+	}
+
+}
+@media only screen and (min-width: 768px) {
+	.slide-main-container {
+		width: 768px;
+		margin: 0 auto;
+	}
+	.slide-header-wrapper {
+		padding: 0 5%;
+	}
+	.slide-header-wrapper h3 {
+		width: 400px;
+		font-size: 45px;
+	}
+	.slide-header-wrapper p {
+		width: 505px;
+	}
+	.swiper-container {
+		width: 690px;
+	}
+	.slide-card-wrapper {
+		width: 325px;
+		height: 540px;
+	}
+	.slide-content-wrapper-inactive {
+		width: 101%;
+		height: 100%;
+	}
+	.slide-content-wrapper-active {
+		width: 101%;
+	}
+	.slide-card-hide {
+		transform: translate(0, 375px);
+	}
+	.slide-content-container {
+		margin-top: 45px;
+	}
+}
+@media only screen and (min-width: 1024px) {
+	.slide-main-container {
+		width: 1024px;
+	}
+	.slide-header-wrapper {
+		padding: 50px 2% 0 5%;
+		width: 500px;
+		display: inline-block;
+		float: left;
+	}
+	.slide-header-wrapper p {
+		width: 100%;
+	}
+	.slide-wrapper {
+		height: 540px;
+		width: 522px;
+		display: inline-block;
+	}
+	.swiper-container {
+		position: absolute;
+		top: 50%;
+		right: 0;
+		transform: translate(0, -50%);
+		width: 505px;
+		height: 540px;
+	}
+}
+@media only screen and (min-width: 1440px) {
+	.slide-main-container {
+		width: 1440px;
+	}
+	.slide-wrapper,
+	.swiper-container {
+		width: 920px;
+	}
+}
