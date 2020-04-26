@@ -151,11 +151,13 @@ function listenForTraps() {
 }
 
 firebase.database().ref('games/bot/' + Cookies.get('dbKey_value')).on('value', function(snapshot) {
-  currentPlayer = snapshot.val().nextTurn;
-
-  if (currentPlayer == null) {
-    location.reload()
-  } // just to be sure that we are able to load the database before starting the game. Better than setTimeout here.
+  try {
+    currentPlayer = snapshot.val().nextTurn;
+  }
+  catch(err) {
+      location.reload()
+       // just to be sure that we are able to load the database before starting the game. Better than setTimeout here.
+  }
   // get the the players tiles
   userCurrentTile = snapshot.val().player.currentTile; 
   botCurrentTile = snapshot.val().bot.currentTile;
