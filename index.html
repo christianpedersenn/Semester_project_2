@@ -5,21 +5,17 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   <title>Semester Project 2</title>
-  <link rel="icon" href="img/mdb-favicon.ico" type="image/x-icon">
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap">
   <link rel="stylesheet" href="assets/css/bootstrap.min.css">
   <link rel="stylesheet" href="assets/css/mdb.min.css">
   <link rel="stylesheet" href="assets/css/style.css">
-
   <link rel="stylesheet" href="assets/css/character-selection.css">
   <link rel="stylesheet" href="https://unpkg.com/swiper/css/swiper.min.css">
   <script src="https://www.gstatic.com/firebasejs/7.10.0/firebase-app.js"></script>
   <script src="https://www.gstatic.com/firebasejs/7.10.0/firebase-analytics.js"></script>
   <script src="https://www.gstatic.com/firebasejs/7.10.0/firebase-auth.js"></script>
   <script src="https://www.gstatic.com/firebasejs/7.10.0/firebase-database.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/7.10.0/firebase-firestore.js"></script>
-
   <script>
     var firebaseConfig = {
       apiKey: "AIzaSyDZ2KaOuqd_DwvsGwTZV0wPaoMZmxAoHEc",
@@ -34,12 +30,9 @@
     firebase.initializeApp(firebaseConfig);
     firebase.analytics();
   </script>
-
 </head>
 <body>
-
   <header>
-    <!--NAVBAR -->
     <nav class="mb-1 navbar navbar-expand-lg navbar-dark dark-navbar">
       <a class="navbar-brand" href="">Game Of Thrones - Board Game</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent-333"
@@ -49,35 +42,21 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent-333">
         <ul class="navbar-nav mr-auto">
           <li class="nav-item active">
-            <!-- <a class="nav-link" href="">Home
-              <span class="sr-only">(current)</span>
-            </a> -->
           </li>
-
         </ul>
         <ul class="navbar-nav ml-auto nav-flex-icons">
           <li class="nav-item">
             <a class="nav-link" href="https://trello.com/b/FeOApoC1/game-of-thrones-board-game" target="_blank">Trello board</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="https://console.firebase.google.com/u/0/project/gameofthrones-boardgame/database/gameofthrones-boardgame/data" target="_blank">Firebase</a>
-          </li>
-          <li class="nav-item">
-            <button class="nav-link btn btn-red" target="_blank" id="clearDatabase">Clear Database</button>
-          </li>
         </ul>
       </div>
     </nav>
-    <!--NAVBAR END -->
   </header>
-
   <main>
     <div class="break-line-30"></div>
     <div class="container-fluid">
       <div class="row">
         <div class="col-12 col-sm-12 col-lg-12">
-
-          <!-- LOADER -->
           <div class="loader" id="loader">
             <h1 class="font-weight-bold my-3">Creating game .. </h1>
             <br>
@@ -87,9 +66,6 @@
               </div>
             </div>
           </div>
-          <!-- LOADER END -->
-
-          <!-- Create game invite block -->
           <div class="container my-5 z-depth-1" id="game-invite-block">
             <section class="dark-grey-text p-5">
               <div class="row">
@@ -115,8 +91,6 @@
               </div>
             </section>
           </div>
-          <!-- Create game invite block END -->
-          <!-- Username block -->
           <div class="container my-5 z-depth-1" id="userName-block">
             <section class="dark-grey-text p-5">
               <div class="row">
@@ -139,9 +113,6 @@
               </div>
             </section>
           </div>
-          <!-- Username block END -->
-
-          <!-- CHARACTER SECTION -->
           <div class="character-section">
             <div class="main-wrapper" id="character-selection">
               <div class="slide-main-container">
@@ -162,8 +133,6 @@
                     <button type="button" class="btn green-button waves-effect" id="bot-character-confirm-button">CREATE GAME</button>
                   </div>
                 </div>
-
-                <!-- SLIDER -->
                 <div class="slide-wrapper">
                   <div class="swiper-container">
                     <div class="swiper-wrapper" id="swiper-wrapper">
@@ -171,13 +140,9 @@
                     </div>
                   </div>
                 </div>
-                <!-- SLIDER END-->
               </div>
             </div>
           </div>
-          <!-- CHARACTER SECTION END -->
-
-        <!-- PLAYER MODE SELECTION -->
         <div class="player-mode" id="player-mode">
           <div class="container my-5">
             <section class="dark-grey-text">
@@ -218,12 +183,9 @@
             </section>
           </div>
         </div>
-        <!-- PLAYER MODE SELECTION END -->
-
         </div>
       </div>
     </div>
-
   </main>
   <script type="text/javascript" src="assets/js/addons/jquery.min.js"></script>
   <script type="text/javascript" src="assets/js/addons/bootstrap.min.js"></script>

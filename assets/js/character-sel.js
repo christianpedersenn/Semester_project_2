@@ -1,3 +1,11 @@
+// Hide the character selection until the user have chosen player mode
+$("#bot-character-confirm-button").hide();
+$("#bot-character-selected-header").hide();
+$("#loader").hide();
+$("#character-selection").hide();
+$("#game-invite-block").hide();
+$("#player-mode").hide();
+
 $(document).ready(function () {
   // Create the slider preferences
   var db = firebase.database();
@@ -44,14 +52,6 @@ $(document).ready(function () {
 });
 });
 
-// Hide the character selection until the user have chosen player mode
-$("#bot-character-confirm-button").hide();
-$("#bot-character-selected-header").hide();
-$("#loader").hide();
-$("#character-selection").hide();
-$("#game-invite-block").hide();
-$("#player-mode").hide();
-
 // Global variables
 var gameModeBotClicked = document.getElementById('player-mode-bot');
 var gameModePVPClicked = document.getElementById('player-mode-pvp');
@@ -80,18 +80,6 @@ userName_block_button.onclick = function() {
     }
 };
 
-
-////////////////////////////////// TESTING ONLY ///////////////////////////////////////////////
-var clearDatabase_button = document.getElementById('clearDatabase');
-clearDatabase_button.onclick = function() {
-  firebase.database().ref("games/").remove();
-  characterID_value = '';
-  gameMode_value = '';
-  gameID_value = '';
-  isHost_value = '';
-  userName_value = '';
-};
-////////////////////////////////// TESTING ONLY ///////////////////////////////////////////////
 gameModeBotClicked.onclick = function() {
   gameMode_value = "bot";
   document.getElementById('player-mode').classList.add('animated', 'fadeOutLeft')
@@ -180,7 +168,6 @@ function createSlide() {
           } else {
             character_img.style.backgroundImage = "url(" + childData.imgURL + ")";
           }
-
       });
           document.getElementById('character0-button').onclick = selectedCharacter_button;
           document.getElementById('character1-button').onclick = selectedCharacter_button;
@@ -355,7 +342,7 @@ function createSlide() {
         $("#loader").hide();
         $("#game-invite-block").show();
         document.getElementById('game-id-key').value = "https://gotboardgame.xyz/alpha/game/join/?id=" + gameID_value.slice(2,9) + "&player=2";
-        // document.getElementById('game-id-key').value = "http://127.0.0.1:2290/game/?id=" + gameID_value.slice(2,9);
+        // document.getElementById('game-id-key').value = "http://127.0.0.1:5500/game/?id=" + gameID_value.slice(2,9);
       }, 2000);
     } else {
       alert('Something bugged out, please clear browser cache and refresh the page!')

@@ -19,8 +19,6 @@
   <script src="https://www.gstatic.com/firebasejs/7.10.0/firebase-analytics.js"></script>
   <script src="https://www.gstatic.com/firebasejs/7.10.0/firebase-auth.js"></script>
   <script src="https://www.gstatic.com/firebasejs/7.10.0/firebase-database.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/7.10.0/firebase-firestore.js"></script>
-
   <script>
     var firebaseConfig = {
       apiKey: "AIzaSyDZ2KaOuqd_DwvsGwTZV0wPaoMZmxAoHEc",
@@ -34,7 +32,6 @@
     };
     firebase.initializeApp(firebaseConfig);
     firebase.analytics();
-
     // If someone tries to enter this page directly, move the person to the main page
     setTimeout(function () {
       window.location = "../"
@@ -44,7 +41,6 @@
 <body>
 
   <header>
-    <!--NAVBAR -->
     <nav class="mb-1 navbar navbar-expand-lg navbar-dark dark-navbar">
       <a class="navbar-brand" href="../">Game Of Thrones - Board Game</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent-333"
@@ -59,14 +55,12 @@
         </ul>
         <ul class="navbar-nav ml-auto nav-flex-icons">
           <li class="nav-item">
-            <a class="nav-link" href="">Refresh</a>
+            <a class="nav-link" href="">Refresh page</a>
           </li>
         </ul>
       </div>
     </nav>
-    <!--NAVBAR END -->
   </header>
-
 
   <script type="text/javascript" src="../assets/js/addons/jquery.min.js"></script>
   <script type="text/javascript" src="../assets/js/addons/bootstrap.min.js"></script>
