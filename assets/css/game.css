@@ -34,3 +34,7 @@
   width: 15.2rem;
   background-color: #fff !important;
 }
+
+.darkmode-border {
+  border: 5px solid #333 !important;
+}
