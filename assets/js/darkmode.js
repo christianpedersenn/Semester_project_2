@@ -9,7 +9,6 @@ $(document).ready(function () {
         setLightMode();            
     }    
     if (Cookies.get('darkModeEnabled') == undefined) {
-        console.log('FFFFAMAMA');
         setLightMode();
         $('#light_mode').hide();     
     }        
