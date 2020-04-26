@@ -180,7 +180,7 @@ firebase.database().ref('games/bot/' + Cookies.get('dbKey_value')).on('value', f
   if (userCurrentTile >= maxTile) {
     roll_dice_button.disabled = true; 
     player_img_element.src = ''
-    firebase.database().ref('games/bot/' + Cookies.get('dbKey_value')).set({
+    firebase.database().ref('games/bot/' + Cookies.get('dbKey_value')).update({
       gameWinner: "player"
     });
     console.log('Player won');
