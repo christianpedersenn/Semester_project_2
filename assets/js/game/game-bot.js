@@ -330,18 +330,3 @@ function rollDiceBot() {
       roll_dice_button.disabled = false;
   }  
 }
-
-
-// TODO: Remove before serving
-document.getElementById('resetData').onclick = function() {
-  firebase.database().ref('games/bot/' + Cookies.get('dbKey_value') + '/gameWinner').remove();   
-  firebase.database().ref('games/bot/' + Cookies.get('dbKey_value') + '/player' ).update({
-    currentTile: 1
-  });  
-  firebase.database().ref('games/bot/' + Cookies.get('dbKey_value') + '/bot' ).update({
-    currentTile: 1
-  });
-  firebase.database().ref('games/bot/' + Cookies.get('dbKey_value')).update({
-    nextTurn: 'player'
-  });
-};
