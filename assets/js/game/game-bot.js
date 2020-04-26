@@ -29,9 +29,10 @@ let userCurrentTile;
 let botCurrentTile;
 
 let currentPlayer; // This will be the current player (snapshot.val().nextTurn;)
-let nextPlayer; // This will be the next player
+let trapPlayer; // This will be the next player
 
 let result; // to use if player rolls a 6 on the dice and then lands on a trap. user should then not be able to roll the dice again
+let botResult;
 
 firebase.database().ref('games/bot/').orderByChild('gameID').equalTo(gameID).on("child_added", function(snapshot) {
   Cookies.set('dbKey_value', snapshot.key)
@@ -46,12 +47,13 @@ firebase.database().ref('games/bot/').orderByChild('gameID').equalTo(gameID).on(
     $("#loader").hide();
     $("#roll-dice-button").show();
     $("#game-board").show();
-  } 
-  // if (snapshot.child('bot').exists() == false) {
-  //   console.log('HELLO?');
-  //   $("#loader").hide();
-  //   document.getElementById('loader-text').value = 'No active game with this ID. Please create a new game.'    
-  // }
+    trap0 = snapshot.val().trapTiles[0]
+    trap1 = snapshot.val().trapTiles[1]
+    trap2 = snapshot.val().trapTiles[2]
+    trap3 = snapshot.val().trapTiles[3]
+    trap4 = snapshot.val().trapTiles[4]
+    trap5 = snapshot.val().trapTiles['newKey']
+  }
 });
 // tiles images
 var tileElement = document.querySelectorAll('tile');
@@ -66,7 +68,6 @@ var tileElement = document.querySelectorAll('tile');
 // disable the button before we get the user
 var dice_element = document.getElementById('dice');
 var roll_dice_button = document.getElementById('roll-dice-button');
-
 
 // create traps in the document
 var query = firebase.database().ref('games/bot/' + Cookies.get('dbKey_value') + '/trapTiles/').orderByKey();
@@ -97,7 +98,7 @@ function listenForTraps() {
       trapCustomMessage = 'Arya Stark found a shortcut for you, go ahead 3 spaces.';
       trapCount = 3;
       trapMove = ' got lucky and can move ' + trapCount + ' spaces ahead.';
-        firebase.database().ref('games/bot/' + Cookies.get('dbKey_value') + '/' + currentPlayer).update({
+        firebase.database().ref('games/bot/' + Cookies.get('dbKey_value') + '/' + trapPlayer).update({
           currentTile: Number(playerCurrentTile) + Number(3)
         });              
       break;
@@ -106,17 +107,16 @@ function listenForTraps() {
       trapCustomMessage = 'Ned Stark raised his Sword and told you to go back, go back 2 spaces.';
       trapCount = 2;
       trapMove = ' got trapped and must move ' + trapCount + ' spaces back.';      
-        firebase.database().ref('games/bot/' + Cookies.get('dbKey_value') + '/' + currentPlayer).update({
+        firebase.database().ref('games/bot/' + Cookies.get('dbKey_value') + '/' + trapPlayer).update({
           currentTile: Number(playerCurrentTile) - Number(2)
         });              
-
       break;
     case trap2:
       trapMessage.innerHTML = 'Melisandre came out from the dark and scared you off, go back 3 spaces.';
       trapCustomMessage  = 'Melisandre came out from the dark and scared you off, go back 3 spaces.';
       trapCount = 3;
       trapMove = ' got trapped and must move ' + trapCount + ' spaces back.';      
-        firebase.database().ref('games/bot/' + Cookies.get('dbKey_value') + '/' + currentPlayer).update({
+        firebase.database().ref('games/bot/' + Cookies.get('dbKey_value') + '/' + trapPlayer).update({
           currentTile: Number(playerCurrentTile) - Number(3)
         });              
       break;
@@ -125,7 +125,7 @@ function listenForTraps() {
       trapCustomMessage  = 'Sandor Clegane blocked the way, but Jon Snow appeared and gave a free passage, go ahead 2 spaces.';
       trapCount = 2;
       trapMove = ' got lucky and can move ' + trapCount + ' spaces ahead.';     
-        firebase.database().ref('games/bot/' + Cookies.get('dbKey_value') + '/' + currentPlayer).update({
+        firebase.database().ref('games/bot/' + Cookies.get('dbKey_value') + '/' + trapPlayer).update({
           currentTile: Number(playerCurrentTile) + Number(2)
         });              
       break;
@@ -134,143 +134,123 @@ function listenForTraps() {
       trapCustomMessage  = 'Deanerys’s dragons have blocked the road ahead, go back 4 spaces.';
       trapCount = 4;
       trapMove = ' got trapped and must move ' + trapCount + ' spaces back.';       
-        firebase.database().ref('games/bot/' + Cookies.get('dbKey_value') + '/' + currentPlayer).update({
+        firebase.database().ref('games/bot/' + Cookies.get('dbKey_value') + '/' + trapPlayer).update({
           currentTile: Number(playerCurrentTile) - Number(4)
         });              
       break;
-      case trap5:
-        trapMessage.innerHTML = 'Deanerys’s dragons have blocked the road ahead, go back 4 spaces.';
-        trapCustomMessage  = 'Deanerys’s dragons have blocked the road ahead, go back 4 spaces.';
-        trapCount = 4;
-        trapMove = ' got trapped and must move ' + trapCount + ' spaces back.';       
-          firebase.database().ref('games/bot/' + Cookies.get('dbKey_value') + '/' + currentPlayer).update({
-            currentTile: Number(playerCurrentTile) - Number(4)
-          });              
-        break;      
+    case trap5:
+      trapMessage.innerHTML = 'Deanerys’s dragons have blocked the road ahead, go back 4 spaces.';
+      trapCustomMessage  = 'Deanerys’s dragons have blocked the road ahead, go back 4 spaces.';
+      trapCount = 4;
+      trapMove = ' got trapped and must move ' + trapCount + ' spaces back.';       
+        firebase.database().ref('games/bot/' + Cookies.get('dbKey_value') + '/' + trapPlayer).update({
+          currentTile: Number(playerCurrentTile) - Number(4)
+        });              
+      break;      
   }
 }
 
- 
-
-  firebase.database().ref('games/bot/' + Cookies.get('dbKey_value')).on('value', function(snapshot) {
-    // if one of the players reach the goal at 30
-    if (userCurrentTile >= maxTile || snapshot.val().gameWinner == 'player' || snapshot.val().gameWinner == 'bot') {
-      roll_dice_button.disabled = true; 
-      player_img_element.src = ''
-      firebase.database().ref('games/bot/' + Cookies.get('dbKey_value')).update({
-        nextTurn: "none",
-        gameWinner: "player"
-      });
-      console.log('Player won');
-      setTimeout(function () {
-        $('#tile-' + 30).append(player_img_element);
-        $('#winnerModal').modal('show')
-      }, 100);    
-    }
-    if (botCurrentTile >= maxTile){
-      bot_img_element.src = ''
-      firebase.database().ref('games/bot/' + Cookies.get('dbKey_value')).update({
-        nextTurn: "none",
-        gameWinner: "bot"
-      });
-      console.log('Bot won');
-      setTimeout(function () {
-        $('#tile-' + 30).append(player_img_element);
-        $('#loserModal').modal('show')
-      }, 100);     
-    }      
-  })
-
-
 firebase.database().ref('games/bot/' + Cookies.get('dbKey_value')).on('value', function(snapshot) {
   currentPlayer = snapshot.val().nextTurn;
+
+  if (currentPlayer == null) {
+    location.reload()
+  } // just to be sure that we are able to load the database before starting the game. Better than setTimeout here.
   // get the the players tiles
-  userCurrentTile = botCurrentTile = snapshot.val().player.currentTile; 
+  userCurrentTile = snapshot.val().player.currentTile; 
   botCurrentTile = snapshot.val().bot.currentTile;
 
+    // set the players icon according to their current tiles
+    player_img_element.src = playerImage;
+    bot_img_element.src = botImage;
+    $('#tile-' + userCurrentTile).append(player_img_element);
+    player_img_element.setAttribute('id', 'img-player');
+    $('#img-player').addClass('character1-tileimg');
+    $('#tile-' + botCurrentTile).append(bot_img_element);
+    bot_img_element.setAttribute('id', 'img-bot');
+    $('#img-bot').addClass('character2-tileimg');  
+  
+    if (currentPlayer == 'player') {
+      roll_dice_button.disabled = false;    
+    }
+    if (currentPlayer == 'bot') {
+      roll_dice_button.disabled = true;
+    }
 
-
-  // set the players icon according to their current tiles
-  player_img_element.src = playerImage;
-  bot_img_element.src = botImage;
-  $('#tile-' + userCurrentTile).append(player_img_element);
-  player_img_element.setAttribute('id', 'img-player');
-  $('#img-player').addClass('character1-tileimg');
-  $('#tile-' + botCurrentTile).append(bot_img_element);
-  bot_img_element.setAttribute('id', 'img-bot');
-  $('#img-bot').addClass('character2-tileimg');  
-
-  if (currentPlayer == 'player') {
-    // console.log('Next turn: player');
-    roll_dice_button.disabled = false;    
+  if (userCurrentTile >= maxTile) {
+    roll_dice_button.disabled = true; 
+    player_img_element.src = ''
+    firebase.database().ref('games/bot/' + Cookies.get('dbKey_value')).set({
+      gameWinner: "player"
+    });
+    console.log('Player won');
+    setTimeout(function () {
+      $('#tile-' + 30).append(player_img_element);
+      $('#winnerModal').modal('show')
+    }, 100);    
+  }
+  if (botCurrentTile >= maxTile){
+    roll_dice_button.disabled = true;
+    bot_img_element.src = ''
+    firebase.database().ref('games/bot/' + Cookies.get('dbKey_value')).update({
+      gameWinner: "bot"
+    });
+    console.log('Bot won');
+    setTimeout(function () {
+      $('#tile-' + 30).append(bot_img_element);
+      $('#loserModal').modal('show')
+    }, 100);     
+  } 
+  
+  // If the player or the bot lands on a trap, show a modal and the execute the function listenForTraps() which contains the trap message and a database update
+  if(snapshot.val().trapTiles.indexOf(userCurrentTile) !== -1){
+    trapPlayer = 'player';
     playerCurrentTile = userCurrentTile
-    setTimeout(function () {         
-      // Unless we wrap this in a try catch function, the code would stop executing when the game ends it would create an error because dataset isn't defined.
-      try {
-        trapTile_value = document.querySelectorAll('#tile-' + playerCurrentTile)[0].dataset.trap; 
-      } catch (error) {
-          console.error(error);                   
-      } finally {
-          // console.log('');
-      }
-      if (trapTile_value) {        
-        trap0 = snapshot.val().trapTiles[0]
-        trap1 = snapshot.val().trapTiles[1]
-        trap2 = snapshot.val().trapTiles[2]
-        trap3 = snapshot.val().trapTiles[3]
-        trap4 = snapshot.val().trapTiles[4]
-        trap5 = snapshot.val().trapTiles['newKey']
+    setTimeout(() => {
+      trapTile_value = document.querySelectorAll('#tile-' + playerCurrentTile)[0].dataset.trap;  
+      if (trapTile_value) { 
         setTimeout(() => {
           listenForTraps();
           $('#trapModal').modal('show')
-        }, 100);
+        }, 200);
         // If player rolled a 6 on the dice and lands on a trap tile, the player shouldn't be able to roll again. 
         if (result == 6) {
           firebase.database().ref('games/bot/' + Cookies.get('dbKey_value')).update({
             nextTurn: 'bot'
           });
-          
+          roll_dice_button.disabled = false; 
           setTimeout(function () {
             dice_element.classList.remove('animated', 'rotateIn');
           }, 200);              
-        }
-        // nextPlayer = 'bot'; 
-      }
-    }, 200);
+        }  
+      }  
+    }, 200);      
   }
-  if (currentPlayer == 'bot') {
-    // console.log('Next turn: bot');    
-    roll_dice_button.disabled = true;        
+
+  if(snapshot.val().trapTiles.indexOf(botCurrentTile) !== -1){
+    trapPlayer = 'bot';
     playerCurrentTile = botCurrentTile
-    setTimeout(function () {
-      let trapTile_value = document.querySelectorAll('#tile-' + playerCurrentTile)[0].dataset.trap;
-      if (trapTile_value) {
-        trap0 = snapshot.val().trapTiles[0]
-        trap1 = snapshot.val().trapTiles[1]
-        trap2 = snapshot.val().trapTiles[2]
-        trap3 = snapshot.val().trapTiles[3]
-        trap4 = snapshot.val().trapTiles[4]
-        trap5 = snapshot.val().trapTiles['newKey']
+    setTimeout(() => {
+      botTrapTile_value = document.querySelectorAll('#tile-' + playerCurrentTile)[0].dataset.trap; 
+      console.log(botTrapTile_value);    
+      if (botTrapTile_value) { 
         setTimeout(() => {
           listenForTraps();
-          // $('#trapModal').modal('show')
-        }, 100);
+        }, 500);
         // If player rolled a 6 on the dice and lands on a trap tile, the player shouldn't be able to roll again. 
-        if (result == 6) {
+        if (botResult == 6) {
           firebase.database().ref('games/bot/' + Cookies.get('dbKey_value')).update({
             nextTurn: 'player'
           });
           roll_dice_button.disabled = false; 
-          
           setTimeout(function () {
             dice_element.classList.remove('animated', 'rotateIn');
           }, 200);              
-        }         
-      }
-    }, 200);
-  }  
+        }  
+      }  
+    }, 200);  
+  }
 })
-
 
 // function to roll the dice, we can then use the function later when the player clicks the button
 function rollDice() {
@@ -288,7 +268,6 @@ document.getElementById('roll-dice-button').onclick = function() {
   result = rollDice();
   getDiceNumber(result);
   console.log('Player rolled: ' + result);
-  
   
   if (result == 6) {
     roll_dice_button.disabled = false;
@@ -322,13 +301,14 @@ document.getElementById('roll-dice-button').onclick = function() {
 function rollDiceBot() {
   roll_dice_button.disabled = true;
   botResult = rollDice();
-  console.log('BOT ROLLED: ' + botResult);
+  console.log('BOT rolled: ' + botResult);
   if (botResult == 6) {    
     firebase.database().ref('games/bot/' + Cookies.get('dbKey_value') + '/bot').update({
       currentTile: Number(botCurrentTile) + Number(botResult)
     });
     setTimeout(() => {
       newBotResult = rollDice();
+      console.log('BOT ROLLED: ' + botResult);
       firebase.database().ref('games/bot/' + Cookies.get('dbKey_value') + '/bot').update({
         currentTile: Number(botCurrentTile) + Number(newBotResult)
       });

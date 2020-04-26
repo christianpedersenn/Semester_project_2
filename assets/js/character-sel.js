@@ -195,8 +195,6 @@ function createSlide() {
     });
 }
 
-
-
 // Highlight current selected slide when clicking the buttons
   var character_selected_header = document.getElementById('character-selected-header');
   var character_info = document.getElementById('character-info');
@@ -268,7 +266,7 @@ function createSlide() {
     setTimeout(function () {
       $("#loader").hide();
       isHost_value = "true";
-      window.location = 'game/bot/?id=' + gameID_value.slice(2,9) + "&player=1";
+      window.location = 'game/bot/?id=' + gameID_value.slice(2,9);
     }, 2000);
   };
 
