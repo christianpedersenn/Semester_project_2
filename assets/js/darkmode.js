@@ -10,7 +10,8 @@ $(document).ready(function () {
     }    
     if (Cookies.get('darkModeEnabled') == undefined) {
         setLightMode();
-        $('#light_mode').hide();     
+        $('#light_mode').hide();
+        setLightMode();     
     }        
 });
 
@@ -27,8 +28,9 @@ var lightModeButton = document.getElementById('light_mode');
 lightModeButton.addEventListener("click", function(){
     document.cookie = "darkModeEnabled=; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
     document.cookie = "darkModeEnabled=false; expires=Wed, 31 Dec 2099 23:59:59 UTC;";
+    $('#dark_mode').show();
+    $('#light_mode').hide();    
     setLightMode()
-    location.reload()
 });
 
 
@@ -41,8 +43,6 @@ function setDarkMode() {
     $('#userName-block').css('background-color', '#444');
     $('#player-mode-bot').css('background-color', '#444');
     $('#player-mode-pvp').css('background-color', '#444');
-
-    // Game pages
     $('.modal-dialog .modal-content').css('background-color', '#444')
     $('#game-id-key').css('color', '#333')
     $('.tile').addClass('darkmode-border');
@@ -50,4 +50,18 @@ function setDarkMode() {
 
 function setLightMode() {
     console.log('LIGHT MODE ACTIVATED');
+    $('body').css('background-color', '#f6f6f6');
+    $('*').css('color', '#333');
+    $('#username').css('color', '#fff')
+    $('.green-button').css('color', '#fff')
+    $('.navbar-dark .navbar-brand').css('color', '#fff')
+    $('.navbar').css('color', '#fff')
+    $('.nav-item .nav-link').css('color', '#fff')
+    $('#userName-block').css('background-color', '#fff');
+    $('#userName-block').css('background-color', '#fff');
+    $('#player-mode-bot').css('background-color', '#fff');
+    $('#player-mode-pvp').css('background-color', '#fff');
+    $('.modal-dialog .modal-content').css('background-color', '#fff')
+    $('#game-id-key').css('color', '#333')
+    $('.tile').removeClass('darkmode-border');   
 }
