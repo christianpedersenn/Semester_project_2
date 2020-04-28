@@ -52,7 +52,7 @@ function setLightMode() {
     console.log('LIGHT MODE ACTIVATED');
     $('body').css('background-color', '#f6f6f6');
     $('*').css('color', '#333');
-    $('#username').css('color', '#fff')
+    $('#username').css('color', '#333')
     $('.green-button').css('color', '#fff')
     $('.navbar-dark .navbar-brand').css('color', '#fff')
     $('.navbar').css('color', '#fff')
