@@ -4,7 +4,8 @@ $("#bot-character-selected-header").hide();
 $("#loader").hide();
 $("#character-selection").hide();
 $("#game-invite-block").hide();
-$("#player-mode").hide();
+$("#userName-block").hide();
+// $("#player-mode").hide();
 
 $(document).ready(function () {
   // Create the slider preferences
@@ -73,9 +74,11 @@ userName_block_button.onclick = function() {
   } else {
     userName_value = document.getElementById('username').value;
     $("#userName-block").hide();
+    $("#player-mode").hide();
     document.getElementById('userName-block').classList.add('animated', 'fadeOutTop')
       setTimeout(function () {
-        $("#player-mode").show();
+        $("#character-selection").show();
+        createSlide();
       }, 100);
     }
 };
@@ -94,11 +97,12 @@ gameModeBotClicked.onclick = function() {
 gameModePVPClicked.onclick = function() {
 gameMode_value = "pvp";
   document.getElementById('player-mode').classList.add('animated', 'fadeOutLeft')
-  document.getElementById('character-selection').classList.add('animated', 'fadeInRight')
+  document.getElementById('userName-block').classList.add('animated', 'fadeInRight')
   setTimeout(function () {
     $("#player-mode").hide();
-    $("#character-selection").show();
-    createSlide();
+    // $("#character-selection").show();
+    $("#userName-block").show();    
+    
   }, 100);
 };
 

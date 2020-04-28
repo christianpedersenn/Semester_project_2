@@ -187,9 +187,10 @@ firebase.database().ref('games/bot/' + Cookies.get('dbKey_value')).on('value', f
     });
     console.log('Player won');
     setTimeout(function () {
-      $('#tile-' + 30).append(player_img_element);
+      $('#tile-' + 0).append(player_img_element);
+      $('#tile-' + 0).append(bot_img_element);
       $('#winnerModal').modal('show')
-    }, 100);    
+    }, 200);    
   }
   if (botCurrentTile >= maxTile){
     roll_dice_button.disabled = true;
@@ -199,9 +200,10 @@ firebase.database().ref('games/bot/' + Cookies.get('dbKey_value')).on('value', f
     });
     console.log('Bot won');
     setTimeout(function () {
-      $('#tile-' + 30).append(bot_img_element);
+      $('#tile-' + 0).append(bot_img_element);
+      $('#tile-' + 0).append(player_img_element);
       $('#loserModal').modal('show')
-    }, 100);     
+    }, 200);     
   } 
   
   // If the player or the bot lands on a trap, show a modal and the execute the function listenForTraps() which contains the trap message and a database update
