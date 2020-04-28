@@ -100,7 +100,7 @@
 	.swiper-slide-prev .slide-cover,
 	.swiper-slide-next .slide-cover,
 	.slide-cover {
-		background-color: #ffffff;
+		background-color: #333;
 		height: 100%;
 		width: 100%;
 		position: absolute;
@@ -118,7 +118,7 @@
 		transition: visibility 0s 0.5s, opacity 300ms;
 		height: 100%;
 		width: 100%;
-		background-color: #ffffff;
+		background-color: #333;
 		z-index: 2;
 		visibility: hidden;
 	}
