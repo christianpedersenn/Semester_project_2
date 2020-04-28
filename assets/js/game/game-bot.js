@@ -149,7 +149,6 @@ function listenForTraps() {
       break;      
   }
 }
-
 firebase.database().ref('games/bot/' + Cookies.get('dbKey_value')).on('value', function(snapshot) {
   try {
     currentPlayer = snapshot.val().nextTurn;
@@ -272,7 +271,13 @@ document.getElementById('roll-dice-button').onclick = function() {
   result = rollDice();
   getDiceNumber(result);
   console.log('Player rolled: ' + result);
-  
+  firebase.database().ref('games/bot/' + Cookies.get('dbKey_value') + '/gamelog/').push({
+    player: 'player',
+    diceResult: result,
+    userName: playerUserName
+  }).then((snapshot) => {
+    Cookies.set('gameLog_key', snapshot.key)
+  });  
   if (result == 6) {
     roll_dice_button.disabled = false;
     firebase.database().ref('games/bot/' + Cookies.get('dbKey_value') + '/player').update({
@@ -306,6 +311,13 @@ function rollDiceBot() {
   roll_dice_button.disabled = true;
   botResult = rollDice();
   console.log('BOT rolled: ' + botResult);
+  firebase.database().ref('games/bot/' + Cookies.get('dbKey_value') + '/gamelog/').push({
+    player: 'bot',
+    diceResult: botResult,
+    userName: 'bot'
+  }).then((snapshot) => {
+    Cookies.set('gameLog_key', snapshot.key)
+  });    
   if (botResult == 6) {    
     firebase.database().ref('games/bot/' + Cookies.get('dbKey_value') + '/bot').update({
       currentTile: Number(botCurrentTile) + Number(botResult)
@@ -334,7 +346,7 @@ function rollDiceBot() {
 }
 
 // update the game-log element in the html
-firebase.database().ref('games/pvp/' + Cookies.get('databaseKey_value') + '/gamelog/').on("value", function(snapshot) {
+firebase.database().ref('games/bot/' + Cookies.get('dbKey_value') + '/gamelog/').on("value", function(snapshot) {
   snapshot.forEach(function(childSnapshot) {
     // unless we remove the game-log element from the html, this would be looped as we are 2 players -
     // requesting data from the database at the same time since Firebase are asking to retrieve data on values changed
