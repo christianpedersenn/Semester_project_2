@@ -372,8 +372,7 @@ function createSlide() {
         $("#character-selection").hide();
         $("#loader").hide();
         $("#game-invite-block").show();
-        document.getElementById('game-id-key').value = "https://gotboardgame.xyz/alpha/game/join/?id=" + gameID_value.slice(2,9) + "&player=2";
-        // document.getElementById('game-id-key').value = "http://127.0.0.1:5500/game/?id=" + gameID_value.slice(2,9);
+        document.getElementById('game-id-key').value = "https://gotboardgame.xyz/game/join/?id=" + gameID_value.slice(2,9) + "&player=2";
       }, 2000);
     } else {
       alert('Something bugged out, please clear browser cache and refresh the page!')
