@@ -14,8 +14,8 @@ let maxTile = 30;
 let gameWinner;
 var player1_img_element = document.createElement("img");
 var player2_img_element = document.createElement("img");
-let player1Image = '../../assets/img/icons/king.png';
-let player2Image = '../../assets/img/icons/rook.png';
+let player1Image = '';
+let player2Image = '';
 let player1CurrentTile;
 let player2CurrentTile;
 let player1Character;
@@ -48,6 +48,61 @@ $("#game-board").hide();
 
 firebase.database().ref('games/pvp/').orderByChild('gameID').equalTo(queryStringID).on("child_added", function(snapshot) {
   Cookies.set('databaseKey_value', snapshot.key)
+  // Ugly code to get the image URL from Firebase storage
+  firebase.database().ref('characters/' + snapshot.val().player1.character).once("value").then(function(snapshot) {
+    var storage = firebase.storage();
+    var storageRef = storage.ref();
+    let player1ImgRef = snapshot.val().characterIcon
+    storageRef.child(player1ImgRef).getDownloadURL().then(function(url) {
+      var xhr = new XMLHttpRequest();
+      xhr.responseType = 'blob';
+      xhr.onload = function(event) {
+        var blob = xhr.response;
+      };
+      xhr.open('GET', url);
+      xhr.send();
+      player1Image = url;
+    
+      player1_img_element.src = player1Image;
+      // document.getElementById('playerIcon').src = player1Image;
+      if (playerID == 'player1') {
+        document.getElementById('playerIcon').src = player1Image;
+      }   
+    }).catch(function(error) {
+    });
+  });
+
+  try {
+    firebase.database().ref('characters/' + snapshot.val().player2.character).once("value").then(function(snapshot) {
+      var storage = firebase.storage();
+      var storageRef = storage.ref();
+      let player2ImgRef = snapshot.val().characterIcon
+      storageRef.child(player2ImgRef).getDownloadURL().then(function(url) {
+        var xhr = new XMLHttpRequest();
+        xhr.responseType = 'blob';
+        xhr.onload = function(event) {
+          var blob = xhr.response;
+        };
+        xhr.open('GET', url);
+        xhr.send();
+        player2Image = url;
+        player2_img_element.src = player2Image;
+        if (playerID == 'player2') {
+          document.getElementById('playerIcon').src = player2Image;
+        }         
+      }).catch(function(error) {
+      });
+    }).catch(function(error) {
+      location.reload() // reload once to get player 2 img
+    }); 
+  } catch (error) {
+      console.error(error);
+      setTimeout(() => {
+        location.reload()
+      }, 5000);
+  } finally {
+    // ALL OKAY
+  }
 });
 
 // Has to be in a function because it is needed to load it only when player2 has connected to the game

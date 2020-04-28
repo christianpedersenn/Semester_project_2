@@ -21,6 +21,7 @@
   <script src="https://www.gstatic.com/firebasejs/7.10.0/firebase-analytics.js"></script>
   <script src="https://www.gstatic.com/firebasejs/7.10.0/firebase-auth.js"></script>
   <script src="https://www.gstatic.com/firebasejs/7.10.0/firebase-database.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.10.0/firebase-storage.js"></script>
   <script>
     var firebaseConfig = {
       apiKey: "AIzaSyDZ2KaOuqd_DwvsGwTZV0wPaoMZmxAoHEc",
@@ -238,15 +239,25 @@
                   </div>
                 </div>
                 <div class="row justify-content-start">
-                  <div class="col-8">
+                  <div class="col-1">
                     <div class="tile" id="tile-27">
                     </div>
+                  </div>
+                  <div class="col-7">
+                    <!-- DICE -->
+                    <div class="center">
+                      <div style="display: inline-block;" class="playerIcon">
+                        <p>Your icon: </p><img id="playerIcon">
+                      </div>
+                      
+                    </div>
+                    <!-- DICE END -->
                   </div>
                   <div class="col-1">
                     <div class="tile" id="tile-13">
                     </div>
                   </div>
-                </div>
+                </div> 
                 <div class="row justify-content-start">
                   <div class="col-8">
                     <div class="tile" id="tile-26">

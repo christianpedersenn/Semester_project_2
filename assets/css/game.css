@@ -21,13 +21,15 @@
 
 .character1-tileimg {
   position: absolute;
-  bottom: 5px;
-  left: 15px;
+  bottom: 15px;
+  left: 25px;
+  height: 40px;
 }
 .character2-tileimg {
   position: absolute;
-  bottom: 5px;
-  left: 60px;
+  bottom: 15px;
+  left: 70px;
+  height: 40px;
 }
 
 .log-header {
@@ -38,3 +40,16 @@
 .darkmode-border {
   border: 5px solid #333 !important;
 }
+
+.playerIcon {
+  display: inline-block;
+  white-space:nowrap;
+}
+.playerIcon img {
+  display: inline-block;
+  white-space:nowrap;
+  height: 50px !important;
+  background-color: #333;
+  padding: 5px;
+}
+

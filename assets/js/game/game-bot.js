@@ -11,8 +11,8 @@ let maxTile = 30;
 let gameWinner;
 let player_img_element = document.createElement("img");
 let bot_img_element = document.createElement("img");
-let playerImage = '../../assets/img/icons/king.png';
-let botImage = '../../assets/img/icons/rook.png';
+let playerImage = '';
+let botImage = '';
 
 let trapCustomMessage;
 let trapCount;
@@ -36,6 +36,47 @@ let botResult;
 
 firebase.database().ref('games/bot/').orderByChild('gameID').equalTo(gameID).on("child_added", function(snapshot) {
   Cookies.set('dbKey_value', snapshot.key)
+
+  // Ugly code to get the image URL from Firebase storage
+  firebase.database().ref('characters/' + snapshot.val().player.character).once("value").then(function(snapshot) {
+    var storage = firebase.storage();
+    var storageRef = storage.ref();
+    let playerImgRef = snapshot.val().characterIcon
+    storageRef.child(playerImgRef).getDownloadURL().then(function(url) {
+      var xhr = new XMLHttpRequest();
+      xhr.responseType = 'blob';
+      xhr.onload = function(event) {
+        var blob = xhr.response;
+      };
+      xhr.open('GET', url);
+      xhr.send();
+      playerImage = url;
+    
+      player_img_element.src = playerImage;  
+      document.getElementById('playerIcon').src = playerImage;
+    }).catch(function(error) {
+    });
+  });
+
+  firebase.database().ref('characters/' + snapshot.val().bot.character).once("value").then(function(snapshot) {
+    var storage = firebase.storage();
+    var storageRef = storage.ref();
+    let botImgRef = snapshot.val().characterIcon
+    storageRef.child(botImgRef).getDownloadURL().then(function(url) {
+      var xhr = new XMLHttpRequest();
+      xhr.responseType = 'blob';
+      xhr.onload = function(event) {
+        var blob = xhr.response;
+      };
+      xhr.open('GET', url);
+      xhr.send();
+      botImage = url;
+    
+      bot_img_element.src = botImage;    
+    }).catch(function(error) {
+    });
+  });
+
   playerUserName = snapshot.val().player.userName
   playerCharacter = snapshot.val().player.character
 
@@ -157,9 +198,9 @@ firebase.database().ref('games/bot/' + Cookies.get('dbKey_value')).on('value', f
       location.reload()
        // just to be sure that we are able to load the database before starting the game. Better than setTimeout here.
   }
-  // get the the players tiles
-  userCurrentTile = snapshot.val().player.currentTile; 
-  botCurrentTile = snapshot.val().bot.currentTile;
+    // get the the players tiles
+    userCurrentTile = snapshot.val().player.currentTile; 
+    botCurrentTile = snapshot.val().bot.currentTile;
 
     // set the players icon according to their current tiles
     player_img_element.src = playerImage;
