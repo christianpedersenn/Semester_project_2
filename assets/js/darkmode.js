@@ -58,7 +58,6 @@ function setLightMode() {
     $('.navbar').css('color', '#fff')
     $('.nav-item .nav-link').css('color', '#fff')
     $('.btn').css('color', '#fff')
-    // $('.btn-sucess').css('color', '#fff')
     $('.heading').css('color', '#fff')
     $('#userName-block').css('background-color', '#fff');
     $('#userName-block').css('background-color', '#fff');
@@ -66,5 +65,11 @@ function setLightMode() {
     $('#player-mode-pvp').css('background-color', '#fff');
     $('.modal-dialog .modal-content').css('background-color', '#fff')
     $('#game-id-key').css('color', '#333')
-    $('.tile').removeClass('darkmode-border');   
+    $('.tile').removeClass('darkmode-border');  
+
+    // PVP Gamelog styles
+    $('.card-body*').css("color", "#fff");
+    $('#section1').css("color", "#fff");
+    $('#game-log-container').css("color", "#fff");
+    $('#game-log').css("color", "#fff");
 }

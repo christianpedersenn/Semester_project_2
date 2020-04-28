@@ -44,3 +44,17 @@ body {
   margin-bottom: 50px;
   font-size:50px;
 }
+
+.fab {
+  color: #fff !important;
+}
+.footer-copyright {
+  color: #fff !important;
+}
+.footer-link {
+  color: #2196F3 !important;
+}
+
+footer.page-footer .footer-copyright {
+  background-color: #444 !important;
+}
