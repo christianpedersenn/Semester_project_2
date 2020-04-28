@@ -125,11 +125,14 @@
                 <div class="slide-header-wrapper">
                   <h3 id="select-character-h3">Select character</h3>
                   <p>Swipe with your mouse or use your arrows on the keyboard to select your character.</p>
+                  <div id="swiper-controls" class="swiper-controls"> 
+                    <a class="btn btn-sm blue-button" id="previous-button"><i class="fas fa-arrow-left fa-2x"></i></a>
+                    <a class="btn btn-sm blue-button" id="next-button"><i class="fas fa-arrow-right fa-2x"></i></a>
+                  </div>
                   <br>
                   <div class="character" id="character-info">
                     <h4><span id="character-selected-header">YOUR CHARACTER</span></h4>
                     <h4><span id="bot-character-selected-header">BOT CHARACTER</span></h4>
-                    <br>
                     <p><b>Title: </b><span id="character-title"></span></p>
                     <p><b>Born: </b><span id="character-born"></span></p>
                     <p><b>Culture: </b><span id="character-culture"></span></p>
@@ -147,8 +150,23 @@
                   </div>
                 </div>
               </div>
+            </div>        
+          </div>
+
+        <div class="container my-2" id="tip">
+          <div class="row">
+            <div class="col-12 col-sm-12 col-lg-6"></div>
+            <div class="col-12 col-sm-12 col-lg-6">
+              <div class="alert alert-info alert-dismissible fade show" role="alert">
+                <strong>TIP! </strong> You can use your keyboard arrows or swipe with your mouse to select a character.
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>              
             </div>
           </div>
+        </div>
+
         <div class="player-mode" id="player-mode">
           <div class="container my-5">
             <section class="dark-grey-text">

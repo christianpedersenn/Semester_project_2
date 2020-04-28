@@ -4,8 +4,13 @@ $("#bot-character-selected-header").hide();
 $("#loader").hide();
 $("#character-selection").hide();
 $("#game-invite-block").hide();
-$("#userName-block").hide();
-// $("#player-mode").hide();
+$("#player-mode").hide();
+$("#tip").hide();
+
+// $("#userName-block").hide();
+// $("#character-selection").show();
+// createSlide();
+
 
 $(document).ready(function () {
   // Create the slider preferences
@@ -15,6 +20,8 @@ $(document).ready(function () {
       enabled: true,
       onlyInViewport: false,
     },
+    nextButton: ".next-button",
+    previousButton: ".previous-button",    
     slidesPerView: 2.7,
     centeredSlides: true,
     updateOnWindowResize: true,
@@ -51,7 +58,31 @@ $(document).ready(function () {
       }
     }
 });
+  document.getElementById('next-button').onclick = function() {
+    mySwiper.slideNext();
+    showTip();
+  };
+  document.getElementById('previous-button').onclick = function() {
+    mySwiper.slidePrev();
+  };
+  document.onkeydown = getKeyboardKey;
+  function getKeyboardKey(e) {
+      if (e.keyCode == '37') {
+        $("#tip").hide();
+      }
+      else if (e.keyCode == '39') {
+        $("#tip").hide();
+      }
+  }
+  function showTip() {
+    $("#tip").show();
+    setTimeout(() => {
+      $("#tip").hide();
+    }, 7000);
+  }
 });
+
+
 
 // Global variables
 var gameModeBotClicked = document.getElementById('player-mode-bot');
@@ -74,11 +105,9 @@ userName_block_button.onclick = function() {
   } else {
     userName_value = document.getElementById('username').value;
     $("#userName-block").hide();
-    $("#player-mode").hide();
     document.getElementById('userName-block').classList.add('animated', 'fadeOutTop')
       setTimeout(function () {
-        $("#character-selection").show();
-        createSlide();
+        $("#player-mode").show();
       }, 100);
     }
 };
@@ -97,12 +126,11 @@ gameModeBotClicked.onclick = function() {
 gameModePVPClicked.onclick = function() {
 gameMode_value = "pvp";
   document.getElementById('player-mode').classList.add('animated', 'fadeOutLeft')
-  document.getElementById('userName-block').classList.add('animated', 'fadeInRight')
+  document.getElementById('character-selection').classList.add('animated', 'fadeInRight')
   setTimeout(function () {
     $("#player-mode").hide();
-    // $("#character-selection").show();
-    $("#userName-block").show();    
-    
+    $("#character-selection").show();    
+    createSlide();
   }, 100);
 };
 
@@ -165,7 +193,6 @@ function createSlide() {
           character_img.setAttribute('id', key + '-img');
           select_button.append('SELECT');
           character_span.append(childData.name);
-
           // If for some reason the images can't be found, show a different image
           if (childData.imgURL == "") {
             character_img.style.backgroundImage = "url('https://firebasestorage.googleapis.com/v0/b/gameofthrones-boardgame.appspot.com/o/images%2FUntitled.png?alt=media&token=52ad4ba6-d2ab-454b-bbe8-a6fa7e39f246')";

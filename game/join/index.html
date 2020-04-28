@@ -87,7 +87,7 @@
                 <div class="col-md-7 mb-lg-0 mb-4">
                   <form class="" action="">
                     <h3 class="font-weight-bold my-3">Create a username</h3>
-                    <p class="text-muted mb-4 pb-2">Create a username. This is not an account creation, and you can choose whatever username you want.</p>
+                    <p class="mb-4 pb-2">Create a username. This is not an account creation, and you can choose whatever username you want.</p>
                     <div class="input-group">
                       <input id="username" type="text" class="form-control">
                     </div>
@@ -105,6 +105,10 @@
                 <div class="slide-header-wrapper">
                   <h3 id="select-character-h3">Select character</h3>
                   <p>Swipe with your mouse or use your arrows on the keyboard to select your character.</p>
+                  <div id="swiper-controls" class="swiper-controls"> 
+                    <a class="btn btn-sm blue-button" id="previous-button"><i class="fas fa-arrow-left fa-2x"></i></a>
+                    <a class="btn btn-sm blue-button" id="next-button"><i class="fas fa-arrow-right fa-2x"></i></a>
+                  </div>
                   <br>
                   <div class="character" id="character-info">
                     <h4><span id="character-selected-header">YOUR CHARACTER</span></h4>
@@ -127,6 +131,20 @@
               </div>
             </div>
           </div>
+
+          <div class="container my-2" id="tip">
+            <div class="row">
+              <div class="col-12 col-sm-12 col-lg-6"></div>
+              <div class="col-12 col-sm-12 col-lg-6">
+                <div class="alert alert-info alert-dismissible fade show" role="alert">
+                  <strong>TIP! </strong> You can use your keyboard arrows or swipe with your mouse to select a character.
+                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>              
+              </div>
+            </div>
+          </div>          
         </div>
       </div>
     </div>

@@ -406,23 +406,6 @@ if (result == 6) {
   }
 };
 
-// TODO: Remove before serving
-document.getElementById('resetData').onclick = function() {
-  firebase.database().ref('games/pvp/' + Cookies.get('databaseKey_value') + '/player1' ).update({
-    currentTile: 1
-  });  
-  firebase.database().ref('games/pvp/' + Cookies.get('databaseKey_value') + '/player2' ).update({
-    currentTile: 1
-  });
-  firebase.database().ref('games/pvp/' + Cookies.get('databaseKey_value')).update({
-    nextTurn: 'player1'
-  });
-  firebase.database().ref('games/pvp/' + Cookies.get('databaseKey_value') + '/gamelog' ).remove();
-  setTimeout(() => {
-    location.reload();
-  }, 1000);     
-};
-
 // There is a much simpler way to create a new game than this, I could simply delete the data from the current game and reload the page.
 // The reason I am not doing that, is because if this was a live website - I'd like to know how how many games are played (statistics)
 // So, here we retrieve the players data from the current game and the we create a new instance in the database and then redirect the users to a new URL using getQuery

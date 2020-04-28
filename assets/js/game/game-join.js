@@ -13,7 +13,7 @@ var playerID = "player" + getQueryStringValue("player"); // get the current play
 $("#character-selection").hide();
 $("#userName-block").show();
 $("#loader").hide();
-
+$("#tip").hide();
 // get the parent database key from the id (getQueryStringValue("id"))
 firebase.database().ref('games/pvp/').orderByChild('gameID').equalTo(queryStringID).on("child_added", function(snapshot) {
   databaseKey_value = snapshot.key;
@@ -33,6 +33,8 @@ $(document).ready(function () {
     observer: true,
     observeParents: true,
     observeSlideChildren: true,
+    nextButton: ".next-button",
+    previousButton: ".previous-button",      
     breakpoints: {
       1440: {
         slidesPerView: 2.6
@@ -63,6 +65,29 @@ $(document).ready(function () {
       }
     }
 });
+
+document.getElementById('next-button').onclick = function() {
+  mySwiper.slideNext();
+  showTip();
+};
+document.getElementById('previous-button').onclick = function() {
+  mySwiper.slidePrev();
+};
+document.onkeydown = getKeyboardKey;
+function getKeyboardKey(e) {
+    if (e.keyCode == '37') {
+      $("#tip").hide();
+    }
+    else if (e.keyCode == '39') {
+      $("#tip").hide();
+    }
+}
+function showTip() {
+  $("#tip").show();
+  setTimeout(() => {
+    $("#tip").hide();
+  }, 7000);
+}
 
 // Let player2 choose a username. Player 1 already did this before creating the game
 document.getElementById('game-id').innerHTML = queryStringID;

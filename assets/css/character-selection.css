@@ -1,6 +1,10 @@
 * {
 	box-sizing: border-box;
-	font-family: "Rubik", sans-serif;
+	font-family: "Roboto", sans-serif;
+}
+
+.swiper-controls {
+	 text-align:center !important;
 }
 
 .slide-wrapper {
@@ -23,9 +27,6 @@
 	display: inline-block;
 }
 
-.character1-img {
-	background-image: url("https://firebasestorage.googleapis.com/v0/b/gameofthrones-boardgame.appspot.com/o/images%2Fcharacter-2.jpg?alt=media&token=bd7b6af8-3497-4d84-bdeb-89bd684577e0")
-}
 .slide-content-container {
 	position: absolute;
 	background-color: #444;
@@ -39,7 +40,7 @@
 }
 .blue-button {
 	background-color: #4688D5;
-	color: #fff;
+	color: #fff !important;
 	font-size: 16px;
 }
 .blue-button:hover {

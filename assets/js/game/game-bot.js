@@ -332,3 +332,31 @@ function rollDiceBot() {
       roll_dice_button.disabled = false;
   }  
 }
+
+// update the game-log element in the html
+firebase.database().ref('games/pvp/' + Cookies.get('databaseKey_value') + '/gamelog/').on("value", function(snapshot) {
+  snapshot.forEach(function(childSnapshot) {
+    // unless we remove the game-log element from the html, this would be looped as we are 2 players -
+    // requesting data from the database at the same time since Firebase are asking to retrieve data on values changed
+    $('#game-log').remove();
+    setTimeout(function () {
+      var gameLog = document.createElement("div")
+      gameLog.setAttribute('id', 'game-log');      
+      if (childSnapshot.val().diceResult == null || childSnapshot.val().diceResult == undefined) {
+        $('#game-log-container').append(gameLog);
+        var textElement = document.createElement("p")
+        textElement.setAttribute('id', childSnapshot.key);
+        textElement.innerHTML = '\n' + childSnapshot.val().userName + childSnapshot.val().trapMove;
+        $('#game-log').append(textElement);
+        $('#' + childSnapshot.key).addClass('animated fadeIn fast');
+      } else {
+        $('#game-log-container').append(gameLog);
+        var textElement = document.createElement("p")
+        textElement.setAttribute('id', childSnapshot.key);
+        textElement.innerHTML = '\n' + childSnapshot.val().userName + ' rolled a ' + childSnapshot.val().diceResult + ' on the dice.';
+        $('#game-log').append(textElement);
+        $('#' + childSnapshot.key).addClass('animated fadeIn fast')     
+      }         
+    }, 100);
+  });
+});
