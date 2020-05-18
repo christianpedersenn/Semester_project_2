@@ -20,18 +20,19 @@
   <script src="https://www.gstatic.com/firebasejs/7.10.0/firebase-auth.js"></script>
   <script src="https://www.gstatic.com/firebasejs/7.10.0/firebase-database.js"></script>
   <script>
-    var firebaseConfig = {
-      apiKey: "AIzaSyDZ2KaOuqd_DwvsGwTZV0wPaoMZmxAoHEc",
-      authDomain: "gameofthrones-boardgame.firebaseapp.com",
-      databaseURL: "https://gameofthrones-boardgame.firebaseio.com",
-      projectId: "gameofthrones-boardgame",
-      storageBucket: "gameofthrones-boardgame.appspot.com",
-      messagingSenderId: "877736684986",
-      appId: "1:877736684986:web:3bb0b7e1e0d7906482c183",
-      measurementId: "G-H45VJLJS9P"
-    };
-    firebase.initializeApp(firebaseConfig);
-    firebase.analytics();
+  var firebaseConfig = {
+    apiKey: "AIzaSyCjRCRScaNG2CjbcGzi6GzEmJ4xkwCT2Gw",
+    authDomain: "got-boardgame.firebaseapp.com",
+    databaseURL: "https://got-boardgame.firebaseio.com",
+    projectId: "got-boardgame",
+    storageBucket: "got-boardgame.appspot.com",
+    messagingSenderId: "554238335256",
+    appId: "1:554238335256:web:42c7174dc8cd2cfcb7e66d",
+    measurementId: "G-7YF3T9EMN4"
+  };
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+  firebase.analytics();
     // If someone tries to enter this page directly, move the person to the main page
     setTimeout(function () {
       window.location = "../"
